@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+from bccdl import download
+import sys
+
+def __usage(error):
+	if error:
+		print (error)
+	print ("""Usage: bccdl [OPTIONS] BVID
+
+Options:
+  General Options:
+    -h, --help				Print this help text
+    -o, --output			Path of subtitles download
+""")
+	exit()
+
+out_path = './'
+argc = len(sys.argv)
+if argc < 2:
+	__usage('Parameter format incorrect!\n')
+elif argc == 2:
+	opt = sys.argv[1]
+	if opt == '-h' or opt == '--help':
+		__usage(None)
+	elif opt[0] == '-':
+		__usage('Parameter format incorrect!\n')
+	elif len(opt) != 12:
+		__usage('BVID format incorrect!\n')
+	else:
+		bvid = opt
+elif argc == 4:
+	opt = sys.argv[1]
+	if opt == '-o' or opt == '--output':
+		out_path = sys.argv[2]
+		if len(sys.argv[3]) != 12:
+			__usage('BVID format incorrect!\n')
+		else:
+			bvid = sys.argv[3]
+	else:
+		__usage('Parameter format incorrect!\n')
+else:
+	__usage('Parameter format incorrect!\n')
+	
+download (bvid, out_path)
