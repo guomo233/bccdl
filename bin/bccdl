@@ -10,7 +10,7 @@ def __usage(error):
 
 Options:
   General Options:
-	-h, --help				Print this help text
+	-h, --help			Print this help text
 	-o, --output			Path of subtitles download
   Boolen Options:
 	-b, --bangumi			Bangumi support (must occur before -o/--output if specified)
