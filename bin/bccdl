@@ -1,21 +1,27 @@
 #!/usr/bin/env python
 
-from bccdl import download
+from bccdl import download_video, download_bangumi
 import sys
 
 def __usage(error):
 	if error:
 		print (error)
-	print ("""Usage: bccdl [OPTIONS] BVID
+	print ("""Usage: bccdl [OPTIONS] IDENTITY
 
 Options:
   General Options:
     -h, --help				Print this help text
-    -o, --output			Path of subtitles download
+    -o, --output            Path of subtitles download
+  Boolen Options:
+    -b, --bangumi           Bangumi support (must occur before -o/--output if specified)
+
+Identity:
+  SSID if boolen option (-b/--bangumi) else (in general) BVID
 """)
 	exit()
 
 out_path = './'
+video = True
 argc = len(sys.argv)
 if argc < 2:
 	__usage('Parameter format incorrect!\n')
@@ -28,7 +34,17 @@ elif argc == 2:
 	elif len(opt) != 12:
 		__usage('BVID format incorrect!\n')
 	else:
-		bvid = opt
+         bvid = opt
+elif argc == 3:
+    opt = sys.argv[1]
+    if opt == '-b' or opt == '--bangumi':
+        if len(sys.argv[2]) != 5:
+            __usage('SSID format incorrect!\n')
+        else:
+            video = False
+            ssid = sys.argv[2]
+    else:
+        __usage('Parameter format incorrect\n')
 elif argc == 4:
 	opt = sys.argv[1]
 	if opt == '-o' or opt == '--output':
@@ -39,7 +55,24 @@ elif argc == 4:
 			bvid = sys.argv[3]
 	else:
 		__usage('Parameter format incorrect!\n')
+elif argc == 5:
+    opt = sys.argv[1]
+    if opt == '-b' or opt == '--bangumi':
+        video = False
+        if sys.argv[2] == '-o' or sys.argv[2] == '--output':
+            out_path = sys.argv[3]
+            if len(sys.argv[4]) != 5:
+                __usage('SSID format incorrect!\n')
+            else:
+                ssid = sys.argv[4]
+        else:
+            __usage('Parameter format incorrect!\n')
+    else:
+        __usage('Parameter format incorrect!\n')
 else:
 	__usage('Parameter format incorrect!\n')
 	
-download (bvid, out_path)
+if video:
+    download_video(bvid, out_path)
+else:
+    download_bangumi(ssid, out_path)

@@ -2,7 +2,7 @@ import setuptools
 
 setuptools.setup(
 	name='bccdl',
-	version='0.1.0',
+	version='0.1.1',
 	author='guomo233',
 	author_email='gmlihanxi@gmail.com',
 	url='https://github.com/guomo233/bccdl',
