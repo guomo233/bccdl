@@ -14,7 +14,7 @@ Options:
     -h, --help				Print this help text
     -o, --output			Path of subtitles download
   Boolen Options:
-    -b, --bangumi     Bangumi support (must occur before -o/--output if specified
+    -b, --bangumi			Bangumi support (must occur before -o/--output if specified
 
 Identity:
   SSID if boolen option (-b/--bangumi) else (in general) BVID
